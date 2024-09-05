@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pessoa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            border: 1px solid black;
+            width: 500px;
+            padding: 10px;
+            margin: auto;
+        }
+        .form-section {
+            background-color: #6ea1f3;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .form-section-gray {
+            background-color: #808080;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .form-section-light-gray {
+            background-color: #d3d3d3;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+        }
+        input[type="text"], input[type="email"], input[type="date"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .button-container {
+            text-align: center;
+        }
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h3>Cadastro da Pessoa:</h3>
+
+        <div class="form-section">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+            
+            <label for="sobrenome">Sobrenome:</label>
+            <input type="text" id="sobrenome" name="sobrenome">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email">
+        </div>
+
+        <div class="form-section-gray">
+            <label for="data-nascimento">Data de Nascimento:</label>
+            <input type="date" id="data-nascimento" name="data-nascimento">
+
+            <label>Sexo:</label>
+            <input type="radio" id="masculino" name="sexo" value="masculino">
+            <label for="masculino" style="display:inline; color:white;">Masculino</label>
+            
+            <input type="radio" id="feminino" name="sexo" value="feminino">
+            <label for="feminino" style="display:inline; color:white;">Feminino</label>
+        </div>
+
+        <div class="form-section-light-gray">
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco">
+
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep">
+
+            <label for="estado">Estado (UF):</label>
+            <select id="estado" name="estado">
+                <option value="">Selecione...</option>
+                <option value="SP">São Paulo</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="BA">Bahia</option>
+            </select>
+        </div>
+
+        <div class="button-container">
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Limpar">
+        </div>
+    </div>
+
+</body>
+</html>

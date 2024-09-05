@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULADORA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .fundo {
+            background-image: radial-gradient(black, red);
+            height: 100vh;
+            color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .calculadora {
+            position: absolute;
+            background-color: black;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 15px;
+            padding: 15px;
+        }
+        .botao {
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            cursor: pointer;
+            background-color: rgb(31, 31, 31);
+            border: none;
+            color: white;
+            margin: 2px;
+        }
+        .botao:hover {
+            background-color: black;
+        }
+        #resultado {
+            background-color: white;
+            width: 207px;
+            height: 30px;
+            margin: 5px;
+            font-size: 25px;
+            color: black;
+            text-align: right;
+            overflow: hidden; /* Evita que o texto ultrapasse o campo */
+        }
+    </style>
+</head>
+<body>
+   <div class="fundo">
+        <h1> Odilon voss</h1>
+        <div class="calculadora">
+            <h1>Calculadora</h1>
+            <p id="resultado"></p>
+            <table>
+                <tr>
+                    <td><button class="botao" data-value="C">C</button></td>
+                    <td><button class="botao" data-value="L">L</button></td>
+                    <td><button class="botao" data-value="/">/</button></td>
+                    <td><button class="botao" data-value="*">X</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" data-value="7">7</button></td>
+                    <td><button class="botao" data-value="8">8</button></td>
+                    <td><button class="botao" data-value="9">9</button></td>
+                    <td><button class="botao" data-value="-">-</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" data-value="4">4</button></td>
+                    <td><button class="botao" data-value="5">5</button></td>
+                    <td><button class="botao" data-value="6">6</button></td>
+                    <td><button class="botao" data-value="+">+</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" data-value="1">1</button></td>
+                    <td><button class="botao" data-value="2">2</button></td>
+                    <td><button class="botao" data-value="3">3</button></td>
+                    <td rowspan="2"><button class="botao" style="height: 106px;" data-value="=">=</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao" style="width: 106px;" data-value="0">0</button></td>
+                    <td><button class="botao" data-value=".">.</button></td>
+                </tr>
+            </table>
+        </div>
+   </div>
+   <script>
+        const resultado = document.getElementById('resultado');
+        let currentInput = '';
+        let operator = '';
+        let previousInput = '';
+
+        document.querySelectorAll('.botao').forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.getAttribute('data-value');
+
+                if (value === 'C') {
+                    currentInput = '';
+                    previousInput = '';
+                    operator = '';
+                    resultado.textContent = '';
+                } else if (value === 'L') {
+                    currentInput = currentInput.slice(0, -1);
+                    resultado.textContent = currentInput;
+                } else if (value === '=') {
+                    if (currentInput && previousInput) {
+                        try {
+                            const expression = previousInput + operator + currentInput;
+                            const calculated = new Function('return ' + expression)();
+                            resultado.textContent = calculated;
+                            currentInput = calculated.toString();
+                            previousInput = '';
+                            operator = '';
+                        } catch (e) {
+                            resultado.textContent = 'Error';
+                            currentInput = '';
+                            previousInput = '';
+                            operator = '';
+                        }
+                    }
+                } else if (['+', '-', '*', '/'].includes(value)) {
+                    if (currentInput) {
+                        if (previousInput && operator) {
+                            const expression = previousInput + operator + currentInput;
+                            try {
+                                const calculated = new Function('return ' + expression)();
+                                previousInput = calculated.toString();
+                            } catch (e) {
+                                resultado.textContent = 'Error';
+                                currentInput = '';
+                                previousInput = '';
+                                operator = '';
+                                return;
+                            }
+                        } else {
+                            previousInput = currentInput;
+                        }
+                        operator = value;
+                        currentInput = '';
+                        resultado.textContent = '';
+                    }
+                } else {
+                    currentInput += value;
+                    resultado.textContent = currentInput;
+                }
+            });
+        });
+   </script>
+</body>
+</html>
